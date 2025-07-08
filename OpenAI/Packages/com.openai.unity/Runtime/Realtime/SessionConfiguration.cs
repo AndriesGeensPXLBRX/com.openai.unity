@@ -129,6 +129,14 @@ namespace OpenAI.Realtime
         [JsonProperty("client_secret", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ClientSecret ClientSecret { get; private set; }
 
+        [JsonIgnore]
+        public bool IsUpdateOperation { get; set; }
+
+        public bool ShouldSerializeClientSecret()
+        {
+            return !IsUpdateOperation;
+        }
+
         [Preserve]
         [JsonConverter(typeof(ModalityConverter))]
         [JsonProperty("modalities", DefaultValueHandling = DefaultValueHandling.Ignore)]
